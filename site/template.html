@@ -1,0 +1,145 @@
+<title>台灣電影特典一覽</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="每天整理台灣上映電影的影城與片商觀影特典：海報、色紙、小卡、特別場。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* 版面：海報牆。每項特典是一張「海報＋票根」卡片，左邊海報縮圖、右邊領取資訊 */
+:root{
+  --bg:#eef1f4; --paper:#ffffff; --ink:#17202b; --muted:#5d6878; --line:#d5dbe3;
+  --accent:#0f5e6e; --gold:#b9821c; --stub:#e6edf0; --frame:#cfd8de;
+  --s-this:#b23a48; --s-next:#0f5e6e; --s-up:#56657a; --s-special:#7a4fb0; --s-new:#b9821c;
+  --f-body:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+  --f-num:"Space Grotesk","Noto Sans TC",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --muted:#9aa6b4; --line:#2c3642;
+  --accent:#5fb7c6; --gold:#e0b052; --stub:#202b34; --frame:#2a3540;
+  --s-this:#e57986; --s-next:#5fb7c6; --s-up:#9aa9bd; --s-special:#b394e0; --s-new:#e0b052; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161c; --paper:#1a2129; --ink:#e7ecf1; --muted:#9aa6b4; --line:#2c3642;
+  --accent:#5fb7c6; --gold:#e0b052; --stub:#202b34; --frame:#2a3540;
+  --s-this:#e57986; --s-next:#5fb7c6; --s-up:#9aa9bd; --s-special:#b394e0; --s-new:#e0b052; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{padding-block:28px 14px;display:grid;gap:6px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:30px;font-weight:900;margin:0;letter-spacing:.04em;text-wrap:balance}
+h1 span{color:var(--gold)}
+.meta{font-family:var(--f-num);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.meta select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+.controls{display:grid;gap:10px;padding-block:10px 16px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+.search{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit}
+.search:focus-visible,.chip:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
+.chip{flex:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .n{font-family:var(--f-num);opacity:.6;margin-left:4px}
+main{padding-block:18px}
+.sec{display:grid;gap:12px;margin-bottom:28px}
+.sec h2{font-size:16px;font-weight:900;margin:0;display:flex;align-items:center;gap:8px}
+.sec h2::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--sc)}
+.sec h2 small{font-weight:400;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:12px}
+.card{display:grid;grid-template-columns:104px 1fr;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.poster{background:var(--stub);border-right:2px dashed var(--line);padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.poster a{display:block;width:100%;text-decoration:none}
+.poster img,.ph{width:100%;aspect-ratio:1/1.414;object-fit:cover;border-radius:3px;background:var(--frame);display:block;box-shadow:0 1px 3px rgb(0 0 0/.15)}
+.ph{display:flex;align-items:center;justify-content:center;font-family:var(--f-num);font-weight:700;color:var(--muted);font-size:13px;line-height:1.3;text-align:center;padding:4px;box-shadow:none;border:1px dashed var(--muted)}
+.more{font-size:11px;color:var(--muted);font-family:var(--f-num)}
+.no{font-family:var(--f-num);font-size:11px;color:var(--muted);letter-spacing:.08em}
+.body{padding:12px 14px;min-width:0;display:grid;gap:6px;align-content:start}
+.movie{font-weight:900;font-size:16px;line-height:1.35}
+.item{font-weight:500}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.fact{font-size:12px;padding:1px 8px;border-radius:4px;background:var(--stub);color:var(--ink);font-variant-numeric:tabular-nums}
+.fact.period{color:var(--sc);font-weight:700}
+.cond{font-size:13px;color:var(--muted);margin:0}
+.src{font-size:13px;color:var(--accent);text-decoration:none;justify-self:start}
+.src:hover{text-decoration:underline}
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+footer{color:var(--muted);font-size:12px;padding-block:20px 40px;border-top:1px solid var(--line)}
+footer a{color:var(--accent)}
+@media (max-width:480px){.card{grid-template-columns:84px 1fr}h1{font-size:24px}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><h1>台灣電影<span>特典</span>一覽</h1></div>
+    <div class="meta"><span id="updated"></span><label for="archive">看其他日期</label><select id="archive"></select></div>
+    <p class="lede">每天整理影城與片商在 Facebook、Threads、官網公布的觀影特典。海報、色紙、小卡、特別場，一頁看完。</p>
+  </header>
+  <div class="controls">
+    <label for="q" hidden>搜尋</label>
+    <input id="q" class="search" type="search" placeholder="搜尋片名、特典、影城…">
+    <div class="chips" id="secs" aria-label="區段"></div>
+    <div class="chips" id="srcs" aria-label="出處"></div>
+  </div>
+  <main id="list"></main>
+  <footer>資料每天更新，內容以影城、片商官方公告為準，數量有限送完為止。原始資料：<a href="https://github.com/LegendMMM/taiwan-cinema-bonuses" target="_blank" rel="noopener">GitHub</a>。</footer>
+</div>
+
+<script>
+let DATA = /*DATA*/{}/*END*/;
+const SEC_COLOR={this_week:"--s-this",next_week:"--s-next",upcoming:"--s-up",special:"--s-special",new:"--s-new"};
+const SEC_SHORT={this_week:"這週",next_week:"下週",upcoming:"之後・預售",special:"特別場",new:"新消息"};
+const state={q:"",sec:"all",src:"全部出處"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// 出處名稱去掉「FB／IG／訂票頁」等尾巴與括號，方便合併成同一個篩選
+const BRANDS=["威秀","秀泰","國賓","新光","喜樂時代","美麗華","美麗新","木棉花","曼迪","采昌","車庫","華納","迪士尼","環球","索尼","傳影","光年","甲上","可樂","天馬行空","巴哈姆特","GNN","商周"];
+const brand=n=>{n=String(n||"");const k=BRANDS.find(b=>n.includes(b));return k||n.replace(/（.*?）/g,"").replace(/\s*(FB|IG|Threads|訂票頁|活動頁)$/,"").trim()||"其他";};
+
+function allItems(){return DATA.sections.flatMap(s=>s.items.map(i=>({...i,sec:s.key})));}
+function chips(el,key,values){
+  el.innerHTML=values.map(([v,label,n])=>`<button class="chip" type="button" data-v="${esc(v)}" aria-pressed="${state[key]===v}">${esc(label)}${n!=null?`<span class="n">${n}</span>`:""}</button>`).join("");
+  el.onclick=e=>{const b=e.target.closest(".chip");if(!b)return;state[key]=b.dataset.v;render();};
+}
+function matches(i){
+  const q=state.q.trim().toLowerCase();
+  return (state.src==="全部出處"||brand(i.source.name)===state.src)
+    &&(!q||[i.movie,i.item,i.condition,i.size,i.source.name].join(" ").toLowerCase().includes(q));
+}
+function render(){
+  const items=allItems();
+  chips($("#secs"),"sec",[["all","全部",items.length],...DATA.sections.map(s=>[s.key,SEC_SHORT[s.key]||s.title,s.items.length])]);
+  const bc=new Map();items.forEach(i=>{const b=brand(i.source.name);bc.set(b,(bc.get(b)||0)+1);});
+  chips($("#srcs"),"src",[["全部出處","全部出處",null],...[...bc].sort((a,b)=>b[1]-a[1]).map(([b,n])=>[b,b,n])]);
+  const html=DATA.sections.filter(s=>state.sec==="all"||s.key===state.sec).map(s=>{
+    const its=s.items.filter(matches);
+    if(!its.length)return "";
+    return `<section class="sec" style="--sc:var(${SEC_COLOR[s.key]||"--s-up"})"><h2>${esc(s.title.replace(/（.*$/,""))}<small>${esc((s.title.match(/（(.*)）/)||[])[1]||"")}・${its.length} 項</small></h2><div class="grid">${its.map(card).join("")}</div></section>`;
+  }).join("");
+  $("#list").innerHTML=html||`<p class="empty">沒有符合條件的特典，換個關鍵字或出處試試。</p>`;
+}
+function card(i){
+  const img=i.images[0];
+  const sizeLabel=(i.size&&i.size!=="—")?i.size.split(/[（、＋]/)[0]:"特典";
+  const poster=img
+    ?`<a href="${esc(img.url)}" target="_blank" rel="noopener" aria-label="看《${esc(i.movie)}》特典圖"><img src="https://drive.google.com/thumbnail?id=${encodeURIComponent(img.id)}&sz=w400" alt="${esc(i.movie)} 特典圖" loading="lazy" referrerpolicy="no-referrer" data-label="${esc(sizeLabel)}" onerror="ph(this)"></a>`
+    :`<div class="ph">${esc(sizeLabel)}</div>`;
+  const more=i.images.length>1?`<span class="more">共 ${i.images.length} 張圖</span>`:"";
+  const facts=[i.period&&`<span class="fact period">${esc(i.period)}</span>`,i.size&&i.size!=="—"&&`<span class="fact">${esc(i.size)}</span>`].filter(Boolean).join("");
+  const src=i.source.url?`<a class="src" href="${esc(i.source.url)}" target="_blank" rel="noopener">出處：${esc(i.source.name)} ↗</a>`:`<span class="src">出處：${esc(i.source.name)}</span>`;
+  return `<article class="card"><div class="poster">${poster}${more}<span class="no">No.${esc(i.no)}</span></div><div class="body"><div class="movie">${esc(i.movie)}</div><div class="item">${esc(i.item)}</div>${facts?`<div class="facts">${facts}</div>`:""}${i.condition?`<p class="cond">${esc(i.condition)}</p>`:""}${src}</div></article>`;
+}
+function ph(img){const d=document.createElement('div');d.className='ph';d.textContent=img.dataset.label;img.replaceWith(d);}
+function header(){
+  $("#updated").textContent="最後更新 "+DATA.updated;
+  const sel=$("#archive");
+  sel.innerHTML=(DATA.archive||[DATA.date]).map(d=>`<option value="${d}"${d===DATA.date?" selected":""}>${d}</option>`).join("");
+}
+const LATEST=DATA;
+$("#archive").addEventListener("change",async e=>{
+  const d=e.target.value;
+  try{
+    const next=d===LATEST.date?LATEST:await (await fetch(`data/${d}.json`)).json();
+    DATA={...next,archive:LATEST.archive};header();render();
+  }catch{e.target.value=DATA.date;}
+});
+$("#q").addEventListener("input",e=>{state.q=e.target.value;render();});
+header();render();
+</script>
